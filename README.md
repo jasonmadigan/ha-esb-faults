@@ -4,7 +4,7 @@ This repository contains a Home Assistant integration for  [ESB Networks PowerCh
 
 ##  Installation
 
-You will need [HACS](https://hacs.xyz) installed in your Home Assistant server. Install the integration and you will then be asked to enter:
+You will need [HACS](https://hacs.xyz) installed in your Home Assistant server. Install the integration by installing this repository as a Custom Respository (working on adding this to the default HACS integration set). Then, navigate to Integrations, Add an Integration and select ESB Faults. You will then be asked to enter:
 
 * Latitude: Your location latitude
 * Longitude: Your location longitude
