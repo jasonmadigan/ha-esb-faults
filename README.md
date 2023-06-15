@@ -29,3 +29,29 @@ The integration reads data 5 minutes. It exposes one entity, `sensor.esb_faults_
 | statusMessage   | Status Message                                               |
 | restoreTime     | Restoration time (only for outages of outageType `Restored`) |
 | numCustAffected | Number of customers affected                                 |
+
+
+## Sample Automation to notify about nearby outages
+
+```yaml
+alias: ESB Outage Notifications
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.esb_faults_sensor
+    attribute: outages
+condition: []
+action:
+  - service: notify.notify
+    data:
+      title: ⚡ ESB Outage Notification ⚡
+      message: >-
+        Type: {{state_attr('sensor.esb_faults_sensor', 'outages')[0].type}},
+        Location: {{state_attr('sensor.esb_faults_sensor',
+        'outages')[0].location}}, Distance:
+        {{state_attr('sensor.esb_faults_sensor', 'outages')[0].distance}} KM,
+        Estimated Restore: {{state_attr('sensor.esb_faults_sensor',
+        'outages')[0].estRestoreTime}}
+mode: single
+```
