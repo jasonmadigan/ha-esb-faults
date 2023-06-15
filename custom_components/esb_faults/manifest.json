@@ -5,10 +5,11 @@
   "codeowners": ["@jasonmadigan"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://www.home-assistant.io/integrations/esb_faults",
+  "documentation": "https://github.com/jasonmadigan/esb_faults",
   "homekit": {},
   "iot_class": "cloud_polling",
   "requirements": ["requests==2.31.0", "geopy==2.3.0"],
   "ssdp": [],
-  "zeroconf": []
+  "zeroconf": [],
+  "issue_tracker": "https://github.com/jasonmadigan/esb_faults/issues"
 }
