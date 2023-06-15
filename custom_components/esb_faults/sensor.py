@@ -47,6 +47,30 @@ def filter_outages_by_proximity(outages, known_location, max_distance):
     return filtered_outages
 
 
+async def fetch_detailed_outage_data(outage_id, api_subscription_key):
+    url = f"https://api.esb.ie/esbn/powercheck/v1.0/outages/{outage_id}"
+    headers = {"api-subscription-key": api_subscription_key}
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, headers=headers) as response:
+            if response.status == 200:
+                data = await response.json()
+                # Extract the desired detailed outage data from the response
+                detailed_outage_data = {
+                    "outageType": data["outageType"],
+                    "location": data["location"],
+                    "plannerGroup": data["plannerGroup"],
+                    "numCustAffected": data["numCustAffected"],
+                    "startTime": data["startTime"],
+                    "estRestoreTime": data["estRestoreTime"],
+                    "statusMessage": data["statusMessage"],
+                    "restoreTime": data["restoreTime"],
+                }
+                return detailed_outage_data
+            else:
+                return None
+
+
 async def fetch_data_from_api(api_subscription_key):
     """Fetch latest faults via ESB Powercheck API."""
     url = "https://api.esb.ie/esbn/powercheck/v1.0/outages"
@@ -103,11 +127,30 @@ class ESBFaultsSensor(Entity):
             self._attributes = {"outages": []}
 
             for outage in filtered_outages:
+                outage_location = outage["p"]["c"]
+                outage_latitude, outage_longitude = map(
+                    float, outage_location.split(",")
+                )
+
+                outage_distance = geodesic(
+                    (self._latitude, self._longitude),
+                    (outage_latitude, outage_longitude),
+                ).kilometers
+
                 outage_data = {
                     "id": outage["i"],
                     "type": outage["t"],
-                    "location": outage["p"]["c"],
+                    "location": outage_location,
+                    "distance": round(outage_distance, 2),
                 }
+
+                # Fetch detailed outage data for the outage ID
+                detailed_outage_data = await fetch_detailed_outage_data(
+                    outage["i"], self._api_subscription_key
+                )
+                if detailed_outage_data is not None:
+                    outage_data.update(detailed_outage_data)
+
                 self._attributes["outages"].append(outage_data)
         else:
             self._state = None
