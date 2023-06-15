@@ -1,0 +1,13 @@
+{
+  "domain": "esb_faults",
+  "name": "ESB Faults",
+  "codeowners": ["@jasonmadigan"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/esb_faults",
+  "homekit": {},
+  "iot_class": "cloud_polling",
+  "requirements": ["requests==2.31.0", "geopy==2.3.0"],
+  "ssdp": [],
+  "zeroconf": []
+}

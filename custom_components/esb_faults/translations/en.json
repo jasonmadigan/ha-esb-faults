@@ -1,0 +1,23 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Integration for ESB's PowerCheck app for information on electrical faults",
+        "data": {
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "proximity": "Proximity in KM",
+          "api_subscription_key": "ESB PowerCheck API Key"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the ESB Faults service.",
+      "invalid_auth": "Invalid API subscription key.",
+      "unknown": "An unknown error occurred."
+    },
+    "abort": {
+      "already_configured": "ESB Faults integration is already configured."
+    }
+  }
+}
