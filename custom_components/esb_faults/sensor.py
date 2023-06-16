@@ -75,7 +75,6 @@ async def fetch_data_from_api(api_subscription_key):
     """Fetch latest faults via ESB Powercheck API."""
     url = "https://api.esb.ie/esbn/powercheck/v1.0/outages"
     headers = {"api-subscription-key": api_subscription_key}
-    _LOGGER.warning("Headers: %s", headers)
 
     async with aiohttp.ClientSession() as session:
         async with session.get(url, headers=headers) as response:
@@ -143,7 +142,7 @@ class ESBFaultsSensor(Entity):
                     "location": outage_location,
                     "distance": round(outage_distance, 2),
                 }
-
+                
                 # Fetch detailed outage data for the outage ID
                 detailed_outage_data = await fetch_detailed_outage_data(
                     outage["i"], self._api_subscription_key
