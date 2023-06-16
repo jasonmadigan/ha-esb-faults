@@ -22,3 +22,5 @@ types-pytz
 pytest-asyncio
 asynctest
 aioresponses
+requests==2.31.0
+geopy==2.3.0
