@@ -1,5 +1,5 @@
 """Test ESB Faults sensor states."""
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, patch
 import pytest
 from custom_components.esb_faults.sensor import ESBFaultsSensor
 
