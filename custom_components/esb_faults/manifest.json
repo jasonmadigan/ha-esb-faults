@@ -1,14 +1,14 @@
 {
   "domain": "esb_faults",
   "name": "ESB Faults",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "codeowners": ["@jasonmadigan"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/jasonmadigan/esb_faults",
   "homekit": {},
   "iot_class": "cloud_polling",
-  "requirements": ["requests==2.31.0", "geopy==2.3.0"],
+  "requirements": ["requests>=2.31.0,<3.0.0", "geopy==2.3.0"],
   "ssdp": [],
   "zeroconf": [],
   "issue_tracker": "https://github.com/jasonmadigan/esb_faults/issues"
