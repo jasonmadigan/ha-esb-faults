@@ -7,6 +7,7 @@ import logging
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.event import async_track_time_interval
 
 from .const import DOMAIN
 from .sensor import ESBFaultsSensor
@@ -37,8 +38,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         await sensor.async_update()
 
     # Schedule periodic updates
-    hass.helpers.event.async_track_time_interval(
-        async_update_sensor, timedelta(minutes=5)
+    async_track_time_interval(
+        hass, async_update_sensor, timedelta(minutes=5)
     )
 
     hass.data.setdefault(DOMAIN, {})
