@@ -21,9 +21,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the ESB Faults sensor."""
 
     # Set up the sensor platform
-    hass.async_create_task(
-        hass.config_entries.async_forward_entry_setup(entry, "sensor")
-    )
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     latitude = entry.data.get("latitude")
     longitude = entry.data.get("longitude")
@@ -55,10 +53,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    unload_ok = True
-    for platform in PLATFORMS:
-        result = await hass.config_entries.async_forward_entry_unload(entry, platform)
-        unload_ok = unload_ok and result
+    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)

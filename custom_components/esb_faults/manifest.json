@@ -1,7 +1,7 @@
 {
   "domain": "esb_faults",
   "name": "ESB Faults",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "codeowners": ["@jasonmadigan"],
   "config_flow": true,
   "dependencies": [],

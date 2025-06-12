@@ -1,6 +1,6 @@
 {
   "name": "ESB Faults Integration for Home Assistant",
-  "hacs": "1.0.2",
+  "hacs": "1.0.4",
   "render_readme": true,
   "homeassistant": "2024.6.1"
 }
